@@ -176,26 +176,26 @@ void Borrow(Book &a) {
 		}
 			}
 }
-void NhapNguoiMuon(Human a, int &dem)
-{
-	printf("Nhap ten nguoi muon: ");
-	fflush(stdin);
-	gets(a.TenNguoiMuon);
-	while (true)
-	{
-		printf("Nhap ngay muon: \n");
-		NhapDate(a.NgayMuon);
-		printf("Nhap ngay tra: \n");
-		NhapDate(a.NgayTra);
-		if (SoSanhNgay(a.NgayMuon, a.NgayTra) == 1)
-		{
-			printf("\nNgay muon va ngay tra khong hop le!\nYeu cau nhap lai.\n");
-		}
-		else
-			dem++;
-		break;
-	}
-}
+//void NhapNguoiMuon(Human a, int &dem)
+//{
+//	printf("Nhap ten nguoi muon: ");
+//	fflush(stdin);
+//	gets(a.TenNguoiMuon);
+//	while (true)
+//	{
+//		printf("Nhap ngay muon: \n");
+//		NhapDate(a.NgayMuon);
+//		printf("Nhap ngay tra: \n");
+//		NhapDate(a.NgayTra);
+//		if (SoSanhNgay(a.NgayMuon, a.NgayTra) == 1)
+//		{
+//			printf("\nNgay muon va ngay tra khong hop le!\nYeu cau nhap lai.\n");
+//		}
+//		else
+//			dem++;
+//		break;
+//	}
+//}
 //Nhap thong tin sach
 void Nhap(Book &a)
 {
@@ -399,7 +399,7 @@ void Search(Book a[],int n) {
 }
 int PlusBorrow(Book a[],int n) {
 	int x;
-	printf("\nNhap 0 de muon tiep va 1(lien tuc) de ket thuc: ");
+	printf("\nNhap 0 de muon tiep va 1(lien tuc) cho den khi ket thuc: ");
 	scanf("%d",&x);
 	switch (x) {
 		case 0:
