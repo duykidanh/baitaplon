@@ -1,20 +1,25 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 //Khai báo struct
+
 typedef struct
 {
 	int ngay, thang, nam;
 } Date;
+
 typedef struct
 {
 	char TenNguoiMuon[100];
 	Date NgayMuon;
 	Date NgayTra;
 } Human;
+
 typedef struct Sach
 {
-	char TenSach[50];
+	char TenSach[100];
 	char TacGia[100];
 	char TheLoai[50];
 	char MaSach[10];
@@ -24,6 +29,7 @@ typedef struct Sach
 	int SLNguoiMuon;
 	Human NguoiMuon;
 } Book;
+
 //Nhap Ngay Thang Nam
 void NhapDate(Date &a)
 {
@@ -173,24 +179,33 @@ void Nhap(Book &a)
 	gets(a.NhaXuatBan);
 	do
 	{
-		printf("Nhap so luong: ");
+		printf("Nhap so luong hien co: ");
 		scanf("%d", &a.SoLuong);
-		if (a.SoLuong <1)
+		if (a.SoLuong <0)
 		{
-			printf("So luong khong hợp le!\nYeu cau nhap lai.\n");
+			printf("So luong khong hop le!\nYeu cau nhap lai.\n");
 		}
-	} while (a.SoLuong <1);
+	} while (a.SoLuong < 0);
+	
+	do{
+		printf("Nhap So Luong Nguoi Muon: ");
+		scanf("%d",&a.SLNguoiMuon);
+	}while(a.SLNguoiMuon < 0||a.SLNguoiMuon > a.SoLuong);
 }
-//Nhap DS Sach
-void NhapDS(Book a[], int &n)
+//Them Sach
+void ThemSach(Book a[], int &SoSach)
 {
-	n = 0;
-	while (n <= 0)
-	{
-		printf("Nhap so luong sach: ");
-		scanf("%d", &n);
-	}
-	for (int i = 0; i < n; i++)
+	int n, add;
+	
+	n = SoSach;
+	
+		printf("Nhap so luong sach muon them: ");
+		scanf("%d", &add);
+
+	
+	SoSach = n + add;
+	
+	for (int i = n; i < SoSach; i++)
 	{
 		printf("\n\nNhap thong tin sach thu %d\n", i + 1);
 		Nhap(a[i]);
@@ -227,6 +242,7 @@ void Xuat(Book a)
 	printf("\nNam xuat ban: %d", a.NamXB);
 	printf("\nNha xuat ban: %s", a.NhaXuatBan);
 	printf("\nSoLuong: %d", a.SoLuong);
+	printf("\nSo luong sach da duoc muon: %d",a.SLNguoiMuon);
 }
 void XuatDS(Book a[], int n)
 {
@@ -236,14 +252,14 @@ void XuatDS(Book a[], int n)
 		Xuat(a[i]);
 	}
 }
-//Hàm đổi chỗ
+//Hàm d?i ch?
 void DoiCho(Book &a, Book &b)
 {
 	Book c = a;
 	a = b;
 	b = c;
 }
-//Sắp xếp theo tên
+//S?p x?p theo tên
 void SapXepTen(Book a[], int n)
 {
 	for (int i = 0; i < n - 1; i++)
@@ -257,11 +273,86 @@ void SapXepTen(Book a[], int n)
 		}
 	}
 }
+
+//ham thay the khoang trong bang dau'_'
+void replace_spaces(char *str)
+ {
+   while (*str)
+   {
+     if (*str == ' ')
+       *str = '_';
+     str++;
+   }
+ }
+
+//Ham xuat file
+void outPutFile(Book a[],char fileName[],int n){
+	FILE *fileptr;
+	fileptr = fopen(fileName,"w");
+	//bien phu de mang gia tri copy
+	char tenSach[100] = "";
+	char tacGia[50]  = "";
+	char theLoai[50] = "";
+	char maSach[10]  = "";
+	char nhaXB[50]   = "";
+	
+	fprintf(fileptr,"%25s%18s%25s%15s%13s%13s%15s%18s\n","Ten Sach","Tac gia","The Loai","Ma Sach","NXB","Nam XB","So Luong","SL nguoi muon");
+	fflush(stdin);
+	for(int i = 0;i < n;i++){
+		//copy chuoi va thay the cac khoang trang trong chuoi bang dau '_'
+		strcpy(tenSach,a[i].TenSach);  replace_spaces(tenSach);
+		strcpy(tacGia,a[i].TacGia);    replace_spaces(tacGia);
+		strcpy(theLoai,a[i].TheLoai);  replace_spaces(theLoai);
+		strcpy(maSach,a[i].MaSach);    replace_spaces(maSach);
+		strcpy(nhaXB,a[i].NhaXuatBan); replace_spaces(nhaXB);
+		
+		fprintf(fileptr,"%25s%18s%25s%15s%13s%13d%15d%18d\n",tenSach,tacGia,theLoai,maSach,nhaXB,a[i].NamXB,a[i].SoLuong,a[i].SLNguoiMuon);
+	}
+	
+//	fclose(fileptr);
+
+}
+
+//Ham doc file
+int inputFile(Book a[], char fileName[]) {
+    
+	FILE * fileptr;
+    fileptr = fopen (fileName, "r");
+    int i = 0;
+    char line[300];
+    
+    if(fileptr == NULL){
+    	printf("Khong tim thay file!.\n");
+	}
+    // doc thong tin sach
+    
+	//ham fgets se lay mot dong va dat con tro chuot o dau dong tiep theo
+    fgets(line, sizeof(line), fileptr);
+    
+    while (fscanf(fileptr, "%25s%18s%25s%20s%13s%13d%15d%18d\n", &a[i].TenSach, &a[i].TacGia, 
+            &a[i].TheLoai, &a[i].MaSach, &a[i].NhaXuatBan, &a[i].NamXB, &a[i].SoLuong, 
+            &a[i].SLNguoiMuon) != EOF) {
+       i++;
+    }
+    
+    printf("So luong sach co san trong file la: %d\n",i); 
+    fclose (fileptr);
+    
+    // tra ve so luong sach duoc doc tu file
+    return i;
+}
+
 //Ham Main
 int main()
 {
+	/*luu y: chi can nhap thong tin thi file se tu dong tao o o dia D voi ten la quanLiThuVien
+			 hoac co the tu tao file va thay doi dia chi o fileName	 */
+	
+	char fileName[] = "D:\\quanLiThuVien.txt";
 	Book a[50];
-	int n;
-	NhapDS(a, n);
-	XuatDS(a, n);
+	int soLuongSach = inputFile(a, fileName);
+	
+	ThemSach(a, soLuongSach);
+	XuatDS(a, soLuongSach);
+	outPutFile(a,fileName,soLuongSach);
 }
