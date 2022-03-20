@@ -172,30 +172,11 @@ void Borrow(Book &a) {
 			case 1:
 				break;
 			default:
-				printf("Nhap ngu vay ban ");
+				printf("Nhap sai ");
 		}
 			}
 }
-//void NhapNguoiMuon(Human a, int &dem)
-//{
-//	printf("Nhap ten nguoi muon: ");
-//	fflush(stdin);
-//	gets(a.TenNguoiMuon);
-//	while (true)
-//	{
-//		printf("Nhap ngay muon: \n");
-//		NhapDate(a.NgayMuon);
-//		printf("Nhap ngay tra: \n");
-//		NhapDate(a.NgayTra);
-//		if (SoSanhNgay(a.NgayMuon, a.NgayTra) == 1)
-//		{
-//			printf("\nNgay muon va ngay tra khong hop le!\nYeu cau nhap lai.\n");
-//		}
-//		else
-//			dem++;
-//		break;
-//	}
-//}
+
 //Nhap thong tin sach
 void Nhap(Book &a)
 {
@@ -314,8 +295,9 @@ void SapXepTen(Book a[], int n)
 		}
 	}
 }
-void Search(Book a[],int n) {
-
+int Search(Book a[],int n) {
+	
+		
 	char keyword[100];
 	printf("\n Nhap 1 de tim kiem theo ten sach");
 	printf("\n Nhap 2 de tim kiem theo the loai");
@@ -334,6 +316,7 @@ void Search(Book a[],int n) {
 				if(strcmp(keyword, a[i].TenSach) == 0) {
 					Xuat(a[i]);
 					Borrow(a[i]);
+					
 					break;
 			}else
 				printf("Khong tim thay tu khoa");
@@ -383,38 +366,22 @@ void Search(Book a[],int n) {
 			}
 			break;
 		case 5:
+			return 1;
 			break;
 		default:
 			printf("Nhap sai");
+			Search(a, n);
+			return 1;
 			break;
 
 	}
 	
-	while (true) {
-		if(PlusBorrow(a, n) != 1)
-			break;
-	}
+	if(Search(a, n) == 1)	
+		return 0;
 		
 	
 }
-int PlusBorrow(Book a[],int n) {
-	int x;
-	printf("\nNhap 0 de muon tiep va 1(lien tuc) cho den khi ket thuc: ");
-	scanf("%d",&x);
-	switch (x) {
-		case 0:
-			Search(a, n);
-			return 1;
-			break;
-		case 1:
-			return 0;
-			break;
-		default:
-			printf("Nhap sai");
-			return 0;
-			break;
-	}
-}
+
 
 //ham thay the khoang trong bang dau'_'
 void replace_spaces(char *str)
@@ -496,6 +463,7 @@ int main()
 	
 	ThemSach(a, soLuongSach);
 	Search(a, soLuongSach);
+	
 	XuatDS(a, soLuongSach);
 	
 	outPutFile(a,fileName,soLuongSach);
