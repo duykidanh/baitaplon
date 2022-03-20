@@ -27,10 +27,11 @@ typedef struct Sach
 	int NamXB;
 	int SoLuong;
 	int SLNguoiMuon;
-	Human NguoiMuon;
+	Human NguoiMuon[50];
 } Book;
 
 //Nhap Ngay Thang Nam
+int PlusBorrow(Book a[],int n);
 void NhapDate(Date &a)
 {
 	int dem = 0;
@@ -140,26 +141,46 @@ int SoSanhNgay(Date a, Date b)
 	return 0;
 }
 //Nhap nguoi muon
-void NhapNguoiMuon(Human a, int &dem)
-{
+void Borrower(Human &human) {
 	printf("Nhap ten nguoi muon: ");
 	fflush(stdin);
-	gets(a.TenNguoiMuon);
-	while (true)
-	{
+	gets(human.TenNguoiMuon);
+	do {
 		printf("Nhap ngay muon: \n");
-		NhapDate(a.NgayMuon);
+		NhapDate(human.NgayMuon);
 		printf("Nhap ngay tra: \n");
-		NhapDate(a.NgayTra);
-		if (SoSanhNgay(a.NgayMuon, a.NgayTra) == 1)
-		{
+		NhapDate(human.NgayTra);
+		if (SoSanhNgay(human.NgayMuon, human.NgayTra) == 1){
 			printf("\nNgay muon va ngay tra khong hop le!\nYeu cau nhap lai.\n");
-		}
-		else
-			dem++;
-		break;
-	}
+		}else
+			break;
+	} while((SoSanhNgay(human.NgayMuon, human.NgayTra) == 1));
 }
+void Borrow(Book &a) {
+	if(a.SoLuong== 0){
+		printf("\nKhong du so luong de muon");
+	}else {
+
+		printf("\nNhap 0 de muon va 1 de bo qua: ");
+		int u;
+		scanf("%d",&u);
+		switch (u) {
+			case 0:
+				Borrower(a.NguoiMuon[a.SLNguoiMuon]);
+				a.SoLuong--;
+				a.SLNguoiMuon++;
+				break;
+			case 1:
+				break;
+			default:
+				printf("Nhap sai ");
+				Borrow(a);
+				break;
+			
+		}
+			}
+}
+
 //Nhap thong tin sach
 void Nhap(Book &a)
 {
@@ -187,10 +208,10 @@ void Nhap(Book &a)
 		}
 	} while (a.SoLuong < 0);
 	
-	do{
-		printf("Nhap So Luong Nguoi Muon: ");
-		scanf("%d",&a.SLNguoiMuon);
-	}while(a.SLNguoiMuon < 0||a.SLNguoiMuon > a.SoLuong);
+//	do{
+//		printf("Nhap So Luong Nguoi Muon: ");
+//		scanf("%d",&a.SLNguoiMuon);
+//	}while(a.SLNguoiMuon < 0||a.SLNguoiMuon > a.SoLuong);
 }
 //Them Sach
 void ThemSach(Book a[], int &SoSach)
@@ -242,7 +263,12 @@ void Xuat(Book a)
 	printf("\nNam xuat ban: %d", a.NamXB);
 	printf("\nNha xuat ban: %s", a.NhaXuatBan);
 	printf("\nSoLuong: %d", a.SoLuong);
-	printf("\nSo luong sach da duoc muon: %d",a.SLNguoiMuon);
+	if(a.SLNguoiMuon > 0) {
+		printf("\nSo luong nguoi muon: %d", a.SLNguoiMuon);
+		for(int i = 0; i < a.SLNguoiMuon; i++) {
+		XuatNguoiMuon(a.NguoiMuon[i]);
+		}
+	}
 }
 void XuatDS(Book a[], int n)
 {
@@ -273,6 +299,93 @@ void SapXepTen(Book a[], int n)
 		}
 	}
 }
+int Search(Book a[],int n) {
+	
+		
+	char keyword[100];
+	printf("\n Nhap 1 de tim kiem theo ten sach");
+	printf("\n Nhap 2 de tim kiem theo the loai");
+	printf("\n Nhap 3 de tim kiem theo tac gia");
+	printf("\n Nhap 4 de tim kiem theo nha san xuat");
+	printf("\n Nhap 5 de bo qua");
+	int x;
+	printf("\nXin moi chon theo y muon: ");
+	scanf("%d",&x);
+	switch (x) {
+		case 1:
+			printf("\nNhap tu khoa can tim: ");
+			fflush(stdin);
+			gets(keyword);
+			for(int i = 0; i < n; i++) {
+				if(strcmp(keyword, a[i].TenSach) == 0) {
+					Xuat(a[i]);
+					Borrow(a[i]);
+					
+					break;
+			}else
+				printf("Khong tim thay tu khoa");
+				break;
+			}
+			break;
+		case 2:
+			printf("\nNhap tu khoa can tim: ");
+			fflush(stdin);
+			gets(keyword);
+			for(int i = 0; i < n; i++) {
+				if(strcmp(keyword, a[i].TheLoai) == 0) {
+					Xuat(a[i]);
+					Borrow(a[i]);
+					break;
+			}else
+				printf("Khong tim thay tu khoa");
+				break;
+			}
+			break;
+		case 3:
+			printf("\nNhap tu khoa can tim: ");
+			fflush(stdin);
+			gets(keyword);
+			for(int i = 0; i < n; i++) {
+				if(strcmp(keyword, a[i].TacGia) == 0) {
+					Xuat(a[i]);
+					Borrow(a[i]);
+					break;
+			}else
+				printf("Khong tim thay tu khoa");
+				break;
+			}
+			break;
+		case 4:
+			printf("\nNhap tu khoa can tim: ");
+			fflush(stdin);
+			gets(keyword);
+			for(int i = 0; i < n; i++) {
+				if(strcmp(keyword, a[i].NhaXuatBan) == 0) {
+					Xuat(a[i]);
+					Borrow(a[i]);
+					break;
+			}else
+				printf("Khong tim thay tu khoa");
+				break;
+			}
+			break;
+		case 5:
+			return 1;
+			break;
+		default:
+			printf("Nhap sai");
+			Search(a, n);
+			return 1;
+			break;
+
+	}
+	
+	if(Search(a, n) == 1)	
+		return 0;
+		
+	
+}
+
 
 //ham thay the khoang trong bang dau'_'
 void replace_spaces(char *str)
@@ -353,6 +466,9 @@ int main()
 	int soLuongSach = inputFile(a, fileName);
 	
 	ThemSach(a, soLuongSach);
+	Search(a, soLuongSach);
+	
 	XuatDS(a, soLuongSach);
+	
 	outPutFile(a,fileName,soLuongSach);
 }
