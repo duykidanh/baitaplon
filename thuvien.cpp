@@ -169,10 +169,14 @@ void Borrow(Book &a) {
 				Borrower(a.NguoiMuon[a.SLNguoiMuon]);
 				a.SoLuong--;
 				a.SLNguoiMuon++;
+				break;
 			case 1:
 				break;
 			default:
 				printf("Nhap sai ");
+				Borrow(a);
+				break;
+			
 		}
 			}
 }
