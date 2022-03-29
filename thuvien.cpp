@@ -555,14 +555,4 @@ int main()
 		}
 	}while(choice != 0);
 
-	
-=======
-	
-	ThemSach(a, soLuongSach);
-	Search(a, soLuongSach);
-	
-	XuatDS(a, soLuongSach);
-	
-	outPutFile(a,fileName,soLuongSach);
-
 }
