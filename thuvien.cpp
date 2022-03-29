@@ -1,9 +1,8 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
-
-//Khai báo struct
 
 typedef struct
 {
@@ -278,14 +277,18 @@ void XuatDS(Book a[], int n)
 		Xuat(a[i]);
 	}
 }
-//Hàm d?i ch?
+
+//HÃ m d?i ch?
+
 void DoiCho(Book &a, Book &b)
 {
 	Book c = a;
 	a = b;
 	b = c;
 }
-//S?p x?p theo tên
+
+//S?p x?p theo tÃªn
+
 void SapXepTen(Book a[], int n)
 {
 	for (int i = 0; i < n - 1; i++)
@@ -321,7 +324,8 @@ int Search(Book a[],int n) {
 					Xuat(a[i]);
 					Borrow(a[i]);
 					
-//					break;
+					break;
+
 			}else
 				printf("Khong tim thay tu khoa");
 				break;
@@ -408,6 +412,8 @@ void replace_string_underscores(Book a[],int n){
 	}
 	
 }
+=======
+
 
 //ham thay the khoang trong bang dau'_'
 void replace_spaces(char *str)
@@ -444,7 +450,10 @@ void outPutFile(Book a[],char fileName[],int n){
 		fprintf(fileptr,"%25s%18s%25s%15s%13s%13d%15d%18d\n",tenSach,tacGia,theLoai,maSach,nhaXB,a[i].NamXB,a[i].SoLuong,a[i].SLNguoiMuon);
 	}
 	
+
 	fclose(fileptr);
+
+
 
 }
 
@@ -483,6 +492,8 @@ void pressAnyKey() {
     system("cls");
 }
 
+
+
 //Ham Main
 int main()
 {
@@ -492,6 +503,7 @@ int main()
 	char fileName[] = "D:\\quanLiThuVien.txt";
 	Book a[50];
 	int soLuongSach = inputFile(a, fileName);
+
 	int choice;
 	replace_string_underscores(a, soLuongSach);
 	
@@ -544,4 +556,13 @@ int main()
 	}while(choice != 0);
 
 	
+=======
+	
+	ThemSach(a, soLuongSach);
+	Search(a, soLuongSach);
+	
+	XuatDS(a, soLuongSach);
+	
+	outPutFile(a,fileName,soLuongSach);
+
 }
