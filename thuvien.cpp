@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-//Khai báo struct
+#include <conio.h>
 
 typedef struct
 {
@@ -278,14 +277,18 @@ void XuatDS(Book a[], int n)
 		Xuat(a[i]);
 	}
 }
+
 //Hàm d?i ch?
+
 void DoiCho(Book &a, Book &b)
 {
 	Book c = a;
 	a = b;
 	b = c;
 }
+
 //S?p x?p theo tên
+
 void SapXepTen(Book a[], int n)
 {
 	for (int i = 0; i < n - 1; i++)
@@ -322,6 +325,7 @@ int Search(Book a[],int n) {
 					Borrow(a[i]);
 					
 					break;
+
 			}else
 				printf("Khong tim thay tu khoa");
 				break;
@@ -386,6 +390,30 @@ int Search(Book a[],int n) {
 	
 }
 
+void replace_underscores(char *str)
+{
+   while (*str)
+   {
+     if (*str == '_')
+       *str = ' ';
+     str++;
+   }
+}
+
+//ham thay the ki tu '_' bang khoang trang cua thong tin trong mang
+void replace_string_underscores(Book a[],int n){
+	
+	for(int i = 0;i < n;i++){
+		replace_underscores(a[i].TenSach);
+		replace_underscores(a[i].MaSach);
+		replace_underscores(a[i].TacGia);
+		replace_underscores(a[i].TheLoai);
+		replace_underscores(a[i].NhaXuatBan);
+	}
+	
+}
+=======
+
 
 //ham thay the khoang trong bang dau'_'
 void replace_spaces(char *str)
@@ -422,7 +450,10 @@ void outPutFile(Book a[],char fileName[],int n){
 		fprintf(fileptr,"%25s%18s%25s%15s%13s%13d%15d%18d\n",tenSach,tacGia,theLoai,maSach,nhaXB,a[i].NamXB,a[i].SoLuong,a[i].SLNguoiMuon);
 	}
 	
-//	fclose(fileptr);
+
+	fclose(fileptr);
+
+
 
 }
 
@@ -455,6 +486,14 @@ int inputFile(Book a[], char fileName[]) {
     return i;
 }
 
+void pressAnyKey() {
+    printf("\n\nNhan phim bat ky de tiep tuc...");
+    getch();
+    system("cls");
+}
+
+
+
 //Ham Main
 int main()
 {
@@ -464,6 +503,60 @@ int main()
 	char fileName[] = "D:\\quanLiThuVien.txt";
 	Book a[50];
 	int soLuongSach = inputFile(a, fileName);
+
+	int choice;
+	replace_string_underscores(a, soLuongSach);
+	
+	do{
+	printf("\n**********************************************************************\n");
+	printf("*                     QUAN LI THU VIEN                               *\n");
+	printf("* 1/ Them sach                                        2/Xuat DS sach *\n");
+	printf("* 3/ Tim sach                                         4/Ghi File     *\n");
+	printf("* 0/ Thoat                                                           *\n");
+	printf("*                                                                    *\n");
+	printf("**********************************************************************\n");
+	printf("Moi nhap lua chon: ");
+	scanf("%d",&choice);
+
+			switch(choice){
+		case 1:
+			ThemSach(a, soLuongSach);
+			pressAnyKey();
+			break;
+		case 2:
+			if(soLuongSach <= 0){
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}else{
+				XuatDS(a, soLuongSach);
+			}
+			pressAnyKey();
+			break;
+		case 3:
+			if(soLuongSach <= 0){
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}else{
+				Search(a, soLuongSach);
+			}
+			pressAnyKey();
+			break;
+		case 4:
+				if(soLuongSach <= 0){
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}else{
+				outPutFile(a,fileName,soLuongSach);
+			}
+			printf("\nGhi thong tin vao file %s thanh cong!", fileName);
+			pressAnyKey();
+			break;
+		case 0:
+			printf("Ban da chon thoat chuong trinh");
+			break;
+		
+		}
+	}while(choice != 0);
+
+	
+=======
 	
 	ThemSach(a, soLuongSach);
 	Search(a, soLuongSach);
@@ -471,4 +564,5 @@ int main()
 	XuatDS(a, soLuongSach);
 	
 	outPutFile(a,fileName,soLuongSach);
+
 }
