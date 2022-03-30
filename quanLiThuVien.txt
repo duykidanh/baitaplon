@@ -1,0 +1,5 @@
+                 Ten Sach           Tac gia                 The Loai        Ma Sach          NXB       Nam XB       So Luong     SL nguoi muon
+                   Naruto Masashi_Kishimoto                    manga          MG001     kim_dong         2000             10                 0
+                One_piece      Oda_Eiichiro                    manga          MG002     kim_dong         1997             15                 0
+                    Conan      Gosho_Aoyama                    manga          MG003     kim_dong         1994              9                 0
+                 Mat_Biec   Nguyen_Nhat_Anh              Tieu_thuyet          TT001      NXB_Tre         1990             12                 0

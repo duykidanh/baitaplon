@@ -278,7 +278,7 @@ void XuatDS(Book a[], int n)
 	}
 }
 
-//HÃ m d?i ch?
+//Hàm d?i ch?
 
 void DoiCho(Book &a, Book &b)
 {
@@ -287,7 +287,7 @@ void DoiCho(Book &a, Book &b)
 	b = c;
 }
 
-//S?p x?p theo tÃªn
+//S?p x?p theo tên
 
 void SapXepTen(Book a[], int n)
 {
@@ -296,6 +296,20 @@ void SapXepTen(Book a[], int n)
 		for (int j = i + 1; j < n; j++)
 		{
 			if (strcmp(a[i].TenSach, a[j].TenSach) > 0)
+			{
+				DoiCho(a[i], a[j]);
+			}
+		}
+	}
+}
+//Sap xep ma sach
+void SapXepMaSach(Book a[], int n)
+{
+	for (int i = 0; i < n - 1; i++)
+	{
+		for (int j = i + 1; j < n; j++)
+		{
+			if (strcmp(a[i].MaSach, a[j].MaSach) > 0)
 			{
 				DoiCho(a[i], a[j]);
 			}
@@ -412,7 +426,7 @@ void replace_string_underscores(Book a[],int n){
 	}
 	
 }
-=======
+
 
 
 //ham thay the khoang trong bang dau'_'
@@ -500,11 +514,12 @@ int main()
 	/*luu y: chi can nhap thong tin thi file se tu dong tao o o dia D voi ten la quanLiThuVien
 			 hoac co the tu tao file va thay doi dia chi o fileName	 */
 	
-	char fileName[] = "D:\\quanLiThuVien.txt";
+	char fileName[] = "C:\\quanLiThuVien.txt";
 	Book a[50];
 	int soLuongSach = inputFile(a, fileName);
 
-	int choice;
+
+	char choice;
 	replace_string_underscores(a, soLuongSach);
 	
 	do{
@@ -516,22 +531,24 @@ int main()
 	printf("*                                                                    *\n");
 	printf("**********************************************************************\n");
 	printf("Moi nhap lua chon: ");
-	scanf("%d",&choice);
+	scanf("%c",&choice);
+	fflush(stdin);
 
 			switch(choice){
-		case 1:
+		case '1':
 			ThemSach(a, soLuongSach);
 			pressAnyKey();
 			break;
-		case 2:
+		case '2':
 			if(soLuongSach <= 0){
 				printf("Chua co thong tin, vui long nhap thong tin!!!!");
 			}else{
+				SapXepMaSach(a,soLuongSach);
 				XuatDS(a, soLuongSach);
 			}
 			pressAnyKey();
 			break;
-		case 3:
+		case '3':
 			if(soLuongSach <= 0){
 				printf("Chua co thong tin, vui long nhap thong tin!!!!");
 			}else{
@@ -539,7 +556,7 @@ int main()
 			}
 			pressAnyKey();
 			break;
-		case 4:
+		case '4':
 				if(soLuongSach <= 0){
 				printf("Chua co thong tin, vui long nhap thong tin!!!!");
 			}else{
@@ -548,11 +565,14 @@ int main()
 			printf("\nGhi thong tin vao file %s thanh cong!", fileName);
 			pressAnyKey();
 			break;
-		case 0:
+		case '0':
 			printf("Ban da chon thoat chuong trinh");
 			break;
-		
+		default:
+			system("cls");
+			printf("Nhap sai! Vui long nhap lai.");
+			break;
 		}
-	}while(choice != 0);
+	}while(choice != '0');
 
 }
