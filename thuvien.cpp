@@ -252,10 +252,41 @@ void DSNguoiMuon(Human a[], int n)
 		XuatNguoiMuon(a[i]);
 	}
 }
+//gach ngang
+void gachngang(){
+	printf("\n");
+	for(int i=0;i<7;i++){
+		printf("_");
+	}
+	printf("|");
+	for(int i=0;i<45;i++){
+		printf("_");
+	}
+	printf("|");
+	for(int i=0;i<20;i++){
+		printf("_");
+	}
+	printf("|");
+	for(int i=0;i<18;i++){
+		printf("_");
+	}
+	printf("|");
+	for(int i=0;i<5;i++){
+		printf("_");
+	}
+	printf("|");
+	for(int i=0;i<10;i++){
+		printf("_");
+	}
+	printf("|");
+	for(int i=0;i<4;i++){
+		printf("_");
+	}
+}
 //Xuat DS Sach
 void Xuat(Book a)
 {
-	printf("\nMa sach: %s", a.MaSach);
+	/*printf("\nMa sach: %s", a.MaSach);
 	printf("\nTen sach: %s", a.TenSach);
 	printf("\nTac gia: %s", a.TacGia);
 	printf("\nThe loai: %s", a.TheLoai);
@@ -267,18 +298,25 @@ void Xuat(Book a)
 		for(int i = 0; i < a.SLNguoiMuon; i++) {
 		XuatNguoiMuon(a.NguoiMuon[i]);
 		}
-	}
+	}*/
+        printf("%-7s|%-45s|%-20s|%-18s|%-5d|%-10s|%-4d",a.MaSach,a.TenSach,a.TacGia,a.TheLoai,a.NamXB,a.NhaXuatBan,a.SoLuong);
 }
 void XuatDS(Book a[], int n)
 {
+        for(int i=0;i<115;i++){
+		printf("_");
+	}
+	printf("\n%-7s|%-45s|%-20s|%-18s|%-5s|%-10s|%-4s","Ma sach"," Ten sach"," Tac gia"," The loai"," Nam"," NXB"," SL");
+	gachngang();
 	for (int i = 0; i < n; i++)
 	{
 		printf("\n");
 		Xuat(a[i]);
+                gachngang();
 	}
 }
 
-//Hàm d?i ch?
+//HÃ m d?i ch?
 
 void DoiCho(Book &a, Book &b)
 {
@@ -287,7 +325,7 @@ void DoiCho(Book &a, Book &b)
 	b = c;
 }
 
-//S?p x?p theo tên
+//S?p x?p theo tÃªn
 
 void SapXepTen(Book a[], int n)
 {
