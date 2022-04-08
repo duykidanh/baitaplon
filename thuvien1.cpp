@@ -676,9 +676,8 @@ int inputFileBorrow(Book a[], char fileName[],int n)
 void pressAnyKey()
 {
 	printf("\n\nNhan phim bat ky de tiep tuc...");
-	fflush(stdin);
 	getch();
-	//fflush(stdin);
+	fflush(stdin);
 	system("cls");
 }
 //Muon sach
