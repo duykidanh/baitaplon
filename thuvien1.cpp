@@ -167,7 +167,7 @@ int SoSanhNgay(Date a, Date b)
 	return 0;
 }
 //ham ke ngang
-void gachngang(int n)
+void printLine(int n)
 {
 	if (n == 1)
 	{
@@ -244,7 +244,7 @@ void mucLuc(int n)
 			printf("_");
 		}
 		printf("\n|%-3s|%-7s|%-45s|%-20s|%-18s|%-5s|%-10s|%-4s|", "STT", "Ma sach", " Ten sach", " Tac gia", " The loai", " Nam", " NXB", " SL");
-		gachngang(n);
+		printLine(n);
 	}
 	else
 	{
@@ -254,7 +254,7 @@ void mucLuc(int n)
 			printf("_");
 		}
 		printf("\n|%-3s|%-45s|%-20s|%-10s|%-10s|", "STT", "Ten sach", "Ten nguoi muon", "Ngay muon", "Ngay tra");
-		gachngang(n);
+		printLine(n);
 	}
 }
 //Nhap nguoi muon
@@ -397,7 +397,7 @@ void XuatNguoiMuon(Human a, int STT, char tensach[])
 	printf("|");
 	XuatDate(a.NgayTra);
 	printf("|");
-	gachngang(2);
+	printLine(2);
 }
 void nguoiMuonTheoSach(Book a)
 {
@@ -438,7 +438,7 @@ void Xuat(Book a, int n)
 {
 	upperAll(a.MaSach);
 	printf("\n|%-3d|%-7s|%-45s|%-20s|%-18s|%-5d|%-10s|%-4d|", n, a.MaSach, a.TenSach, a.TacGia, a.TheLoai, a.NamXB, a.NhaXuatBan, a.SoLuong);
-	gachngang(1);
+	printLine(1);
 }
 void XuatDS(Book a[], int n)
 {
@@ -449,7 +449,7 @@ void XuatDS(Book a[], int n)
 	}
 }
 //ham sap xep
-void SapXepTen(Book a[], int n)
+void SapXepMa(Book a[], int n)
 {
 	int pos;
 	Book x;
@@ -619,7 +619,7 @@ void outPutFile(Book a[], char fileName[], int n)
 	for(int j=0;j<a[i].SLNguoiMuon;j++){
 		strcpy(tenNguoiMuon, a[i].NguoiMuon[j].TenNguoiMuon);
 				replace_spaces(tenNguoiMuon);
-		fprintf(fileptr, "%20s%8d%8d%8d%8d%8d%8d", tenNguoiMuon, a[i].NguoiMuon[j].NgayMuon.ngay, a[i].NguoiMuon[j].NgayMuon.thang, a[i].NguoiMuon[j].NgayMuon.nam, a[i].NguoiMuon[j].NgayTra.ngay, a[i].NguoiMuon[j].NgayTra.thang, a[i].NguoiMuon[j].NgayTra.nam);
+		fprintf(fileptr, "%20s%8d%8d%8d%8d%8d%8d\n", tenNguoiMuon, a[i].NguoiMuon[j].NgayMuon.ngay, a[i].NguoiMuon[j].NgayMuon.thang, a[i].NguoiMuon[j].NgayMuon.nam, a[i].NguoiMuon[j].NgayTra.ngay, a[i].NguoiMuon[j].NgayTra.thang, a[i].NguoiMuon[j].NgayTra.nam);
 	}
 //	}			
 	}
@@ -663,7 +663,6 @@ void pressAnyKey()
 	printf("\n\nNhan phim bat ky de tiep tuc...");
 	fflush(stdin);
 	getch();
-	//fflush(stdin);
 	system("cls");
 }
 //Tra sach
@@ -708,6 +707,7 @@ void TraSach(Book a[], char ten[], int n)
 							a[i].NguoiMuon[k] = a[i].NguoiMuon[k + 1];
 						}
 						--a[i].SLNguoiMuon;
+						++a[i].SoLuong;
 						++y;
 						break;
 					}
@@ -1082,7 +1082,8 @@ int main()
 			 hoac co the tu tao file va thay doi dia chi o fileName	 */
 	//	char fileName[] = "D:\\quanLiThuVien.txt";
 	//	char fileName[] = "C:\\aaa\\QuanLyThuViena.txt";
-	char fileName[] = "/storage/emulated/0/txtpad/QuanLyThuViena.txt";
+	char fileName[] = "D:\\quanLiThuVien.txt";
+	
 	Book a[50];
 	int soLuongSach = inputFile(a, fileName);
 	char choice;
@@ -1113,7 +1114,7 @@ int main()
 			}
 			else
 			{
-				SapXepTen(a, soLuongSach);
+				SapXepMa(a, soLuongSach);
 				XuatDS(a, soLuongSach);
 			}
 			pressAnyKey();
