@@ -1168,6 +1168,10 @@ int main()
 		case '0':
 			printf("Ban da chon thoat chuong trinh");
 			break;
+		default:
+			printf("Nhap sai vui long nhap lai.\n");
+			pressAnyKey();
+			break;
 		}
 	} while (choice != '0');
 }
