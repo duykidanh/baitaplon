@@ -2,16 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+
 typedef struct
 {
 	int ngay, thang, nam;
 } Date;
+
 typedef struct
 {
 	char TenNguoiMuon[100];
 	Date NgayMuon;
 	Date NgayTra;
 } Human;
+
 typedef struct Sach
 {
 	char TenSach[100];
@@ -24,6 +27,150 @@ typedef struct Sach
 	int SLNguoiMuon;
 	Human NguoiMuon[50];
 } Book;
+
+//Nguyen mau ham
+void Upper(char &c);
+void upperAll(char c[]);
+void upperFirstLetter(char c[]);
+void keyWord(char keyword[]);
+void NhapDate(Date &a);
+int SoSanhNgay(Date a, Date b);
+void printLine(int n);
+void mucLuc(int n);
+int CheckHuman(Human a[],int x);
+void Borrower(Human &human);
+void Borrow(Book &a);
+int Check(Book a[], int n, int x);
+void Nhap(Book &a);
+void ThemSach(Book a[], int &SoSach);
+void XuatDate(Date a);
+void XuatNguoiMuon(Human a, int STT, char tensach[]);
+void nguoiMuonTheoSach(Book a);
+void DSNguoiMuon(Book a[], int n);
+void Xuat(Book a, int n);
+void XuatDS(Book a[], int n);
+void SapXepMa(Book a[], int n);
+int findString(char str[],char keyword[]);
+Book Search(Book a[], int n);
+void replace_underscores(char *str);
+void replace_string_underscores(Book a[], int n);
+void replace_spaces(char *str);
+void outPutFile(Book a[], char fileName[], int n);
+int inputFile(Book a[], char fileName[]);
+void pressAnyKey();
+void TraSach(Book a[], char ten[], int n);
+void MuonSach(Book a[], int n);
+void Xoa(Book a[], int &n);
+void SuaNguoiMuon(Human &human, int e);
+void SuaDSNguoiMuon(Human human[], int e, int n);
+void Sua1(Book &a);
+void Sua(Book a[], int n);
+void ChinhSua(Book a[], int &n);
+
+//Ham Main
+int main()
+{
+	/*luu y: chi can nhap thong tin thi file se tu dong tao o o dia D voi ten la quanLiThuVien
+			 hoac co the tu tao file va thay doi dia chi o fileName	 */
+	char fileName[] = "D:\\quanLiThuVien.txt";
+	
+	Book a[50];
+	int soLuongSach = inputFile(a, fileName);
+	char choice;
+	replace_string_underscores(a, soLuongSach);
+	
+	do
+	{
+		printf("\n                  QUAN LI THU VIEN           \n");
+		printf("   _--------------------_ _-------------------_\n");
+		printf("  | |                    |                   | |\n");
+		printf("  | | 1/ Them sach       | 2/Xuat DS sach    | |\n");
+		printf("  | |                    |                   | |\n");
+		printf("  | | 3/ Muon sach       | 4/Ghi File        | |\n");
+		printf("  | |                    |                   | |\n");
+		printf("  | | 5/ Tim kiem        | 6/Chinh sua       | |\n");
+		printf("  | |                    |                   | |\n");
+		printf("  | | 0/ Thoat           |                   | |\n");
+		printf("  | |_------------------_^_-----------------_| |\n");
+		printf("  |_--------------------_|_-------------------_|\n");
+		printf("\n\nMoi nhap lua chon: ");
+		fflush(stdin);
+		scanf("%c", &choice);
+		fflush(stdin);
+		switch (choice)
+		{
+		case '1':
+			ThemSach(a, soLuongSach);
+			pressAnyKey();
+			break;
+		case '2':
+			if (soLuongSach <= 0)
+			{
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}
+			else
+			{
+				SapXepMa(a, soLuongSach);
+				XuatDS(a, soLuongSach);
+			}
+			pressAnyKey();
+			break;
+		case '3':
+			if (soLuongSach <= 0)
+			{
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}
+			else
+			{
+				MuonSach(a, soLuongSach);
+			}
+			pressAnyKey();
+			break;
+		case '4':
+			if (soLuongSach <= 0)
+			{
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}
+			else
+			{
+				outPutFile(a, fileName, soLuongSach);
+			}
+			printf("\nGhi thong tin vao file %s thanh cong!", fileName);
+			pressAnyKey();
+			break;
+		case '5':
+			if (soLuongSach <= 0)
+			{
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}
+			else
+			{
+				Search(a, soLuongSach);
+			}
+			pressAnyKey();
+			break;
+		case '6':
+			if (soLuongSach <= 0)
+			{
+				printf("Chua co thong tin, vui long nhap thong tin!!!!");
+			}
+			else
+			{
+				ChinhSua(a, soLuongSach);
+			}
+			pressAnyKey();
+			break;
+
+		case '0':
+			printf("Ban da chon thoat chuong trinh");
+			break;
+		default:
+			printf("Nhap sai vui long nhap lai.\n");
+			pressAnyKey();
+			break;
+		}
+	} while (choice != '0');
+}
 
 //Ham in hoa
 void Upper(char &c)
@@ -171,66 +318,22 @@ void printLine(int n)
 {
 	if (n == 1)
 	{
-		printf("\n|___|");
-		for (int i = 0; i < 7; i++)
-		{
-			printf("_");
+		printf("\n");
+		for(int i=0;i<121;++i){
+			if(i==0 || i==4 || i == 12 || i== 58 || i == 79 || i ==98 || i==104 || i ==115 || i == 120)
+				printf("|");
+			else printf("_");
+			//in dau '|' o vi tri i va in '_' o nhung vi tri con lai
 		}
-		printf("|");
-		for (int i = 0; i < 45; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 20; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 18; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 5; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 10; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 4; i++)
-		{
-			printf("_");
-		}
-		printf("|");
 	}
 	else
 	{
-		printf("\n|___|");
-		for (int i = 0; i < 45; i++)
-		{
-			printf("_");
+		printf("\n");
+		for(int i=0;i<94;++i){
+			if(i==0 || i == 4 || i == 50 || i == 71 || i== 82 || i== 93)
+			printf("|");
+			else printf("_");
 		}
-		printf("|");
-		for (int i = 0; i < 20; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 10; i++)
-		{
-			printf("_");
-		}
-		printf("|");
-		for (int i = 0; i < 10; i++)
-		{
-			printf("_");
-		}
-		printf("|");
 	}
 }
 //Muc Luc
@@ -249,7 +352,7 @@ void mucLuc(int n)
 	else
 	{
 		printf(" ");
-		for (int i = 0; i < 93; ++i)
+		for (int i = 0; i < 92; ++i)
 		{
 			printf("_");
 		}
@@ -257,7 +360,7 @@ void mucLuc(int n)
 		printLine(n);
 	}
 }
-//Nhap nguoi muon
+
 int CheckHuman(Human a[],int x){
 	for(int i=0;i<x;++i){
 		if(strcmp((a[i].TenNguoiMuon),(a[x].TenNguoiMuon))==0){
@@ -466,10 +569,20 @@ void SapXepMa(Book a[], int n)
 	}
 }
 
+int findString(char str[],char keyword[]){
+	char b[100];
+	
+	if(strstr(strupr(strcpy(b,str)), strupr(keyword)) != NULL){
+		return 1;
+	}
+	return 0;
+}
+
 //ham tim kiem
 Book Search(Book a[], int n)
 {
 	char keyword[100];
+	char b[100] = "";
 	int dem = 0;
 	printf("\n Nhap 1 de tim kiem theo ten sach");
 	printf("\n Nhap 2 de tim kiem theo the loai");
@@ -486,39 +599,39 @@ Book Search(Book a[], int n)
 		keyWord(keyword);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(keyword, a[i].TenSach) == 0)
+			if (findString(a[i].TenSach,keyword) == 1)
 			{
+				dem++;
 				mucLuc(1);
 				Xuat(a[i], 1);
-				++dem;
-				break;
+				printf("\n");
 			}
 		}
 		if (dem == 0)
-			printf("Khong tim thay tu khoa");
+			printf("\nKhong tim thay tu khoa");
 		break;
 	case 2:
 		printf("\nNhap tu khoa can tim: ");
 		keyWord(keyword);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(keyword, a[i].TheLoai) == 0)
+			if (findString(a[i].TheLoai,keyword) == 1)
 			{
+				dem++;
 				mucLuc(1);
 				Xuat(a[i], 1);
-				++dem;
-				break;
+				printf("\n");
 			}
 		}
 		if (dem == 0)
-			printf("Khong tim thay tu khoa");
+			printf("\nKhong tim thay tu khoa");
 		break;
 	case 3:
 		printf("\nNhap tu khoa can tim: ");
 		keyWord(keyword);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(keyword, a[i].TacGia) == 0)
+			if (findString(a[i].TacGia,keyword) == 1)
 			{
 				++dem;
 				mucLuc(1);
@@ -526,14 +639,14 @@ Book Search(Book a[], int n)
 			}
 		}
 		if (dem == 0)
-			printf("Khong tim thay tu khoa");
+			printf("\nKhong tim thay tu khoa");
 		break;
 	case 4:
 		printf("\nNhap tu khoa can tim: ");
 		keyWord(keyword);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(keyword, a[i].NhaXuatBan) == 0)
+			if (findString(a[i].NhaXuatBan,keyword) == 1)
 			{
 				++dem;
 				mucLuc(1);
@@ -541,12 +654,12 @@ Book Search(Book a[], int n)
 			}
 		}
 		if (dem == 0)
-			printf("Khong tim thay tu khoa");
+			printf("\nKhong tim thay tu khoa");
 		break;
 	case 5:
 		break;
 	default:
-		printf("Nhap sai");
+		printf("\nNhap sai");
 		break;
 	}
 }
@@ -677,8 +790,8 @@ void TraSach(Book a[], char ten[], int n)
 			{
 				if (dem == 0)
 					mucLuc(2);
-				XuatNguoiMuon(a[i].NguoiMuon[j], dem + 1, a[i].TenSach);
-				++dem;
+					XuatNguoiMuon(a[i].NguoiMuon[j], dem + 1, a[i].TenSach);
+					++dem;
 			}
 		}
 	}
@@ -783,7 +896,7 @@ void Xoa(Book a[], int &n)
 		keyWord(s);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(s, a[i].TenSach) == 0)
+			if (findString(a[i].TenSach,s) == 1)
 			{
 				mucLuc(1);
 				Xuat(a[i], i + 1);
@@ -819,7 +932,7 @@ void Xoa(Book a[], int &n)
 		upperAll(s);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(s, a[i].MaSach) == 0)
+			if (findString(a[i].MaSach,s) == 1)
 			{
 				mucLuc(1);
 				Xuat(a[i], i + 1);
@@ -1000,7 +1113,7 @@ void Sua(Book a[], int n)
 		keyWord(o);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(o, a[i].TenSach) == 0)
+			if (findString(a[i].TenSach,o) == 1)
 			{
 				mucLuc(1);
 				Xuat(a[i], i + 1);
@@ -1028,7 +1141,7 @@ void Sua(Book a[], int n)
 		upperAll(o);
 		for (int i = 0; i < n; i++)
 		{
-			if (strcmp(o, a[i].MaSach) == 0)
+			if (findString(a[i].MaSach,o) == 1)
 			{
 				mucLuc(1);
 				Xuat(a[i], i + 1);
@@ -1074,104 +1187,4 @@ void ChinhSua(Book a[], int &n)
 	default:
 		break;
 	}
-}
-//Ham Main
-int main()
-{
-	/*luu y: chi can nhap thong tin thi file se tu dong tao o o dia D voi ten la quanLiThuVien
-			 hoac co the tu tao file va thay doi dia chi o fileName	 */
-	//	char fileName[] = "D:\\quanLiThuVien.txt";
-	//	char fileName[] = "C:\\aaa\\QuanLyThuViena.txt";
-	char fileName[] = "D:\\quanLiThuVien.txt";
-	
-	Book a[50];
-	int soLuongSach = inputFile(a, fileName);
-	char choice;
-	replace_string_underscores(a, soLuongSach);
-	do
-	{
-		printf("\n**********************************************************************\n");
-		printf("*                     QUAN LI THU VIEN                               *\n");
-		printf("* 1/ Them sach                                        2/Xuat DS sach *\n");
-		printf("* 3/ Muon sach                                        4/Ghi File     *\n");
-		printf("* 5/ Tim kiem                                         6/Chinh sua    *\n");
-		printf("* 0/Thoat                                                            *\n");
-		printf("**********************************************************************\n");
-		printf("Moi nhap lua chon: ");
-		fflush(stdin);
-		scanf("%c", &choice);
-		fflush(stdin);
-		switch (choice)
-		{
-		case '1':
-			ThemSach(a, soLuongSach);
-			pressAnyKey();
-			break;
-		case '2':
-			if (soLuongSach <= 0)
-			{
-				printf("Chua co thong tin, vui long nhap thong tin!!!!");
-			}
-			else
-			{
-				SapXepMa(a, soLuongSach);
-				XuatDS(a, soLuongSach);
-			}
-			pressAnyKey();
-			break;
-		case '3':
-			if (soLuongSach <= 0)
-			{
-				printf("Chua co thong tin, vui long nhap thong tin!!!!");
-			}
-			else
-			{
-				MuonSach(a, soLuongSach);
-			}
-			pressAnyKey();
-			break;
-		case '4':
-			if (soLuongSach <= 0)
-			{
-				printf("Chua co thong tin, vui long nhap thong tin!!!!");
-			}
-			else
-			{
-				outPutFile(a, fileName, soLuongSach);
-			}
-			printf("\nGhi thong tin vao file %s thanh cong!", fileName);
-			pressAnyKey();
-			break;
-		case '5':
-			if (soLuongSach <= 0)
-			{
-				printf("Chua co thong tin, vui long nhap thong tin!!!!");
-			}
-			else
-			{
-				Search(a, soLuongSach);
-			}
-			pressAnyKey();
-			break;
-		case '6':
-			if (soLuongSach <= 0)
-			{
-				printf("Chua co thong tin, vui long nhap thong tin!!!!");
-			}
-			else
-			{
-				ChinhSua(a, soLuongSach);
-			}
-			pressAnyKey();
-			break;
-
-		case '0':
-			printf("Ban da chon thoat chuong trinh");
-			break;
-		default:
-			printf("Nhap sai vui long nhap lai.\n");
-			pressAnyKey();
-			break;
-		}
-	} while (choice != '0');
 }
