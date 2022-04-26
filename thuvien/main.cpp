@@ -4,7 +4,7 @@ int main()
 {
 	/*luu y: chi can nhap thong tin thi file se tu dong tao o o dia D voi ten la quanLiThuVien
 			 hoac co the tu tao file va thay doi dia chi o fileName	 */
-	char fileName[] = "C:\\aaa\\quanLiThuVien.txt";
+	char fileName[] = "D:\\quanLiThuVien.txt";
 	
 	Book a[50];
 	int soLuongSach = inputFile(a, fileName);
