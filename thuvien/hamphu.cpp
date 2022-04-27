@@ -146,6 +146,7 @@ int compareDate(Date a, Date b)
 	}
 	return 0;
 }
+//so sanh ngay vua nhap voi ngay hien tai
 int DateNow(Date a){
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
@@ -220,7 +221,7 @@ void Contents(int n)
 		printLine(n);
 	}
 }
-
+//kiem tra ten nguoi muon co bi trung
 int CheckHuman(Human a[],int x){
 	for(int i=0;i<x;++i){
 		if(strcmp((a[i].TenNguoiMuon),(a[x].TenNguoiMuon))==0){
@@ -266,7 +267,7 @@ void Sort(Book a[], int n)
 		a[pos + 1] = x;
 	}
 }
-
+//ham tim kiem tu khoa
 int findString(char str[],char keyword[]){
 	char b[100];
 	
@@ -275,6 +276,7 @@ int findString(char str[],char keyword[]){
 	}
 	return 0;
 }
+//ham thay the ky tu '_' bang khoang trang
 void replace_underscores(char *str)
 {
 	while (*str)
@@ -313,6 +315,7 @@ void replace_spaces(char *str)
 		str++;
 	}
 }
+//nhan phim bat ky de tiep tuc
 void pressAnyKey()
 {
 	printf("\n\nNhan phim bat ky de tiep tuc...");
