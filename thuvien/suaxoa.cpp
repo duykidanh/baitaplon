@@ -1,4 +1,5 @@
 #include"header.h"
+//xoa sach
 void Delete(Book a[], int &n)
 {
 	//Tim kiem phan tu ma ban muon xoa
@@ -89,6 +90,7 @@ void Delete(Book a[], int &n)
 		break;
 	}
 }
+//Sua thong tin nguoi muon
 void UpdateBorrower(Human &human, int e)
 {
 	switch (e)
@@ -131,6 +133,7 @@ void UpdateBorrower(Human &human, int e)
 	}
 	}
 }
+//tim vi tri nguoi muon can sua
 void UpdatelistBorrower(Human human[], int e, int n)
 {
 	int i;
@@ -141,6 +144,7 @@ void UpdatelistBorrower(Human human[], int e, int n)
 	} while (i <= 0 || i > n);
 	UpdateBorrower(human[i - 1], e);
 }
+//sua thong tin sach
 void Update1(Book &a)
 {
 	//Chon phan thong tin can sua
@@ -209,22 +213,28 @@ void Update1(Book &a)
 	}
 	case 8: // Thong tin nguoi muon
 	{
+                if(a.SLNguoiMuon==0){
+                    printf("\n Chua co thong tin nguoi muon!");
+                    break;
+                }
+                else{
 		//Nhap phan thong tin cua nguoi muon can sua
 		bookBorrower(a);
 		int e;
 		do
 		{
-			printf("\n Nhap 1 de sua ten sach");
-		    printf("\n Nhap 2 de sua tac gia");
-		    printf("\n Nhap 3 de sua the loai");
+			printf("\n Nhap 1 de sua ten nguoi muon");
+		    printf("\n Nhap 2 de sua ngay muon");
+		    printf("\n Nhap 3 de sua ngay tra");
 			printf("\n\nNhap phan muon sua trong thong tin nguoi muon: ");
 			scanf("%d", &e);
 		} while (e < 1 || e > 3);
 		UpdatelistBorrower(a.NguoiMuon, e, a.SLNguoiMuon);
-		break;
+		break;}
 	}
 	}
 }
+//tim kiem sach can sua
 void Update(Book a[], int n)
 {
 	int x;
@@ -298,6 +308,7 @@ void Update(Book a[], int n)
 		break;
 	}
 }
+//Menu chinh sua sach
 void UpdateBook(Book a[], int &n)
 {
 	int x;
