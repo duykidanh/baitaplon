@@ -1,4 +1,5 @@
 #include"header.h"
+//nhap thong tin nguoi muon
 void Borrower(Human &human)
 {
 	printf("Nhap ten nguoi muon: ");
@@ -24,6 +25,7 @@ void Borrower(Human &human)
 		}
 	} while ((compareDate(human.NgayMuon, human.NgayTra) == 1));
 }
+//muon sach
 void Borrow(Book &a)
 {
 	if (a.SoLuong == 0)
@@ -54,7 +56,7 @@ void Borrow(Book &a)
 		}
 	}
 }
-//Xuat DS nguoi muon
+//Xuat thong tin nguoi muon
 void outputBorrower(Human a, int STT, char tensach[])
 {
 	printf("\n|%-3d|%-45s|%-20s|", STT, tensach, a.TenNguoiMuon);
@@ -64,6 +66,7 @@ void outputBorrower(Human a, int STT, char tensach[])
 	printf("|%-10s|",a.TinhTrang);
 	printLine(2);
 }
+//xuat thong tin nguoi muon theo ten sach
 void bookBorrower(Book a)
 {
 	Contents(2);
@@ -72,6 +75,7 @@ void bookBorrower(Book a)
 		outputBorrower(a.NguoiMuon[i], i + 1, a.TenSach);
 	}
 }
+//xuat danh sach nguoi muon
 void listBorrower(Book a[], int n)
 {
 	int SL = 0;
@@ -152,7 +156,7 @@ void returnBook(Book a[], char ten[], int n)
 		}
 	}
 }
-//Muon sach
+//Menu muon sach
 void borrowBook(Book a[], int n)
 {
 	int x;
